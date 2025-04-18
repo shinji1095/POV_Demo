@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import ButtonGrid from './components/ButtonGrid/ButtonGrid';
+import LogTextField from './components/LogTextField/LogTextField';
+import MeasureButton from './components/MeasureButton/MeasureButton';
 
 function App() {
+  const [logs, setLogs] = useState([]);
+
+  const addLog = (message) => {
+    setLogs([...logs, `${new Date().toISOString()}: ${message}`]);
+  };
+
+  const handleMeasureClick = () => {
+    addLog('Measurement started');
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="top-section">
+        <ButtonGrid addLog={addLog} />
+        <LogTextField logs={logs} />
+      </div>
+      <MeasureButton onClick={handleMeasureClick} />
     </div>
   );
 }

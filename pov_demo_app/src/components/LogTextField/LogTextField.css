@@ -1,0 +1,11 @@
+.log-textfield {
+    width: 100%;
+    max-width: 600px;
+    height: 150px;
+    margin: 20px 0;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+  }
