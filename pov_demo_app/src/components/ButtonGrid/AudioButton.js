@@ -3,11 +3,11 @@ import { useAudio } from '../../hooks/useAudio';
 import '../ButtonGrid/ButtonGrid.css';
 
 function AudioButton({ addLog }) {
-  const { handleAudioClick } = useAudio(addLog);
+  const { handleAudioClick, isPlaying } = useAudio(addLog);
 
   return (
     <button className="grid-button" onClick={handleAudioClick}>
-      音声
+      {isPlaying ? '音声停止' : '音声'}
     </button>
   );
 }
