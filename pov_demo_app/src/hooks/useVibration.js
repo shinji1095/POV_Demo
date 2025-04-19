@@ -1,12 +1,31 @@
+import { useState, useEffect, useCallback } from 'react';
 import { createLogMessage } from '../utils/logUtils';
+import { config } from '../config/config';
 
 export const useVibration = (addLog) => {
-  const handleVibrationClick = () => {
-    const message = createLogMessage('Vibration button clicked');
-    addLog(message);
-    // navigator.vibrate(200);
-    console.log('Triggering vibration');
-  };
+  const [isVibrating, setIsVibrating] = useState(false);
 
-  return { handleVibrationClick };
+  const handleVibrationClick = useCallback(() => {
+    setIsVibrating((prev) => {
+      const newState = !prev;
+      const message = createLogMessage(newState ? 'Vibration started' : 'Vibration stopped');
+      addLog(message);
+      return newState;
+    });
+  }, [addLog]);
+
+  useEffect(() => {
+    let intervalId;
+    if (isVibrating) {
+      intervalId = setInterval(() => {
+        navigator.vibrate(config.VIBRATION_DURATION);
+      }, config.VIBRATION_INTERVAL);
+    }
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+      navigator.vibrate(0);
+    };
+  }, [isVibrating]);
+
+  return { handleVibrationClick, isVibrating };
 };
