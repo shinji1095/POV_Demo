@@ -1,13 +1,12 @@
 import React from 'react';
 import { useImu } from '../../hooks/useImu';
-import '../ButtonGrid/ButtonGrid.css';
 
-function ImuButton({ addLog }) {
-  const { handleImuClick } = useImu(addLog);
+function ImuButton({ addLog, addImuData, clearImuBuffer }) {
+  const { handleImuClick, isCollecting } = useImu(addLog, addImuData, clearImuBuffer);
 
   return (
     <button className="grid-button" onClick={handleImuClick}>
-      IMU
+      {isCollecting ? 'IMU停止' : 'IMU'}
     </button>
   );
 }

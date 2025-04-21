@@ -1,9 +1,8 @@
 import React from 'react';
 import { useCsv } from '../../hooks/useCsv';
-import '../ButtonGrid/ButtonGrid.css';
 
-function CsvButton({ addLog }) {
-  const { handleCsvClick } = useCsv(addLog);
+function CsvButton({ addLog, imuBuffer, clearImuBuffer }) {
+  const { handleCsvClick } = useCsv(addLog, imuBuffer, clearImuBuffer);
 
   return (
     <button className="grid-button" onClick={handleCsvClick}>
