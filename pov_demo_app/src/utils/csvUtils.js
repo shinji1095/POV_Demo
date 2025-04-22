@@ -1,10 +1,10 @@
 import { config } from '../config/config';
 
-export const generateCsv = (imuBuffer) => {
+export const generateCsv = (imuData) => {
   const headers = ['timestamp', 'x', 'y', 'z'];
   const csvRows = [headers.join(',')];
 
-  imuBuffer.forEach((data) => {
+  imuData.forEach((data) => {
     const row = [
       data.timestamp,
       data.x,

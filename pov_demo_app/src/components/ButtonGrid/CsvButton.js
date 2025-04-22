@@ -1,8 +1,8 @@
 import React from 'react';
 import { useCsv } from '../../hooks/useCsv';
 
-function CsvButton({ addLog, imuBuffer, clearImuBuffer }) {
-  const { handleCsvClick } = useCsv(addLog, imuBuffer, clearImuBuffer);
+function CsvButton({ addLog }) {
+  const { handleCsvClick } = useCsv(addLog);
 
   return (
     <button className="grid-button" onClick={handleCsvClick}>

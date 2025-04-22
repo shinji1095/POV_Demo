@@ -1,9 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
 import { createLogMessage } from '../utils/logUtils';
-import { config } from '../config/config.js'
+import { saveImuData } from '../utils/dbUtils';
 
-export const useImu = (addLog, addImuData, clearImuBuffer) => {
+export const useImu = (addLog) => {
   const [isCollecting, setIsCollecting] = useState(false);
+  const [sessionId, setSessionId] = useState(null);
 
   const handleImuClick = useCallback(() => {
     setIsCollecting((prev) => {
@@ -11,27 +12,29 @@ export const useImu = (addLog, addImuData, clearImuBuffer) => {
       const message = createLogMessage(newState ? 'IMU collection started' : 'IMU collection stopped');
       addLog(message);
       if (newState) {
-        clearImuBuffer(); // 新規取得前にバッファをクリア
+        setSessionId(new Date().toISOString().replace(/[:.]/g, '')); // 新しいセッションID
+      } else {
+        setSessionId(null);
       }
       return newState;
     });
-  }, [addLog, clearImuBuffer]);
+  }, [addLog]);
 
   useEffect(() => {
-    let lastSampleTime = 0;
-    const handleDeviceMotion = (event) => {
-      const now = Date.now();
-      if (now - lastSampleTime < 1000 / config.IMU_SAMPLING_RATE) return;
-      lastSampleTime = now;
+    const handleDeviceMotion = async (event) => {
       const { x, y, z } = event.accelerationIncludingGravity || {};
-      if (x !== null && y !== null && z !== null) {
+      if (x !== null && y !== null && z !== null && sessionId) {
         const data = {
           timestamp: new Date().toISOString(),
           x: x.toFixed(3),
           y: y.toFixed(3),
           z: z.toFixed(3),
         };
-        addImuData(data);
+        try {
+          await saveImuData(sessionId, data);
+        } catch (error) {
+          addLog(`IMU save error: ${error.message}`);
+        }
       }
     };
 
@@ -46,11 +49,13 @@ export const useImu = (addLog, addImuData, clearImuBuffer) => {
             } else {
               addLog('IMU permission denied');
               setIsCollecting(false);
+              setSessionId(null);
             }
           })
           .catch((error) => {
             addLog(`IMU permission error: ${error.message}`);
             setIsCollecting(false);
+            setSessionId(null);
           });
       }
     }
@@ -58,7 +63,7 @@ export const useImu = (addLog, addImuData, clearImuBuffer) => {
     return () => {
       window.removeEventListener('devicemotion', handleDeviceMotion);
     };
-  }, [isCollecting, addImuData, addLog]);
+  }, [isCollecting, sessionId, addLog]);
 
   return { handleImuClick, isCollecting };
 };

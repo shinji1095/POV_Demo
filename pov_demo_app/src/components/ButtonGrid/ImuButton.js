@@ -1,8 +1,8 @@
 import React from 'react';
 import { useImu } from '../../hooks/useImu';
 
-function ImuButton({ addLog, addImuData, clearImuBuffer }) {
-  const { handleImuClick, isCollecting } = useImu(addLog, addImuData, clearImuBuffer);
+function ImuButton({ addLog }) {
+  const { handleImuClick, isCollecting } = useImu(addLog);
 
   return (
     <button className="grid-button" onClick={handleImuClick}>

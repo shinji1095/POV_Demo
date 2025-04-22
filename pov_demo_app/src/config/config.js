@@ -11,5 +11,5 @@ export const config = {
     IMU_SAMPLING_RATE: 50,    // Hz
 
     // CSV関係
-    OUTPUT_DIR: 'downloads',
+    OUTPUT_DIR: '/sdcard/Download/',
   };

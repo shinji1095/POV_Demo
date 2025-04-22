@@ -1,25 +1,25 @@
 import { useCallback } from 'react';
 import { createLogMessage } from '../utils/logUtils';
 import { generateCsv } from '../utils/csvUtils';
+import { getLatestSessionData } from '../utils/dbUtils';
 
-export const useCsv = (addLog, imuBuffer, clearImuBuffer) => {
-  const handleCsvClick = useCallback(() => {
-    if (imuBuffer.length === 0) {
-      const message = createLogMessage('No IMU data to save');
-      addLog(message);
-      return;
-    }
-
+export const useCsv = (addLog) => {
+  const handleCsvClick = useCallback(async () => {
     try {
-      generateCsv(imuBuffer);
+      const data = await getLatestSessionData();
+      if (data.length === 0) {
+        const message = createLogMessage('No IMU data to save');
+        addLog(message);
+        return;
+      }
+      generateCsv(data);
       const message = createLogMessage('CSV file saved');
       addLog(message);
-      clearImuBuffer();
     } catch (error) {
       const message = createLogMessage(`CSV save error: ${error.message}`);
       addLog(message);
     }
-  }, [addLog, imuBuffer, clearImuBuffer]);
+  }, [addLog]);
 
   return { handleCsvClick };
 };
