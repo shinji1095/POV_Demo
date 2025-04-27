@@ -1,14 +1,23 @@
 import React from 'react';
 import './LogTextField.css';
 
-function LogTextField({ logs }) {
+function LogTextField({ message, state, onOkClick }) {
   return (
-    <textarea
-      className="log-textfield"
-      value={logs.join('\n')}
-      readOnly
-      placeholder="ログ"
-    />
+    <div className="log-textfield-wrapper">
+      <div className="log-textfield-container">
+        <textarea
+          className="log-textfield"
+          value={message}
+          readOnly
+          placeholder="ログ"
+        />
+        {(state === 2 || state === 3) && (
+          <button onClick={onOkClick} className="ok-button">
+            OK
+          </button>
+        )}
+      </div>
+    </div>
   );
 }
 

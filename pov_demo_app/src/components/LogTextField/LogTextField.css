@@ -1,11 +1,34 @@
+/* ラッパー全体（画面の中央寄せ＋上寄せ） */
+.log-textfield-wrapper {
+  display: flex;
+  justify-content: center; /* 横中央 */
+  align-items: flex-start; /* 上寄せ */
+  height: 100vh;
+  padding-top: 50px;
+}
+
+/* テキストエリアとボタンをまとめるコンテナ */
+.log-textfield-container {
+  display: flex;
+  flex-direction: column; /* 縦方向に並べる */
+  align-items: center;
+  width: 300px;
+}
+
+/* テキストエリア */
 .log-textfield {
-    width: 100%;
-    max-width: 600px;
-    height: 150px;
-    margin: 20px 0;
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    resize: none;
-  }
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 16px;
+  resize: none;
+}
+
+/* OKボタン */
+.ok-button {
+  margin-top: 10px;
+  padding: 5px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}

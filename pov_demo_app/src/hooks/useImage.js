@@ -55,7 +55,6 @@ export const useImage = (addLog) => {
 
         //await wait(33);
       }
-
       
       const content = await zip.generateAsync({ type: 'blob' });
       saveAs(content, 'burst_images.zip');
