@@ -1,7 +1,7 @@
 import { config } from '../config/config';
 
 export const generateCsv = (imuData) => {
-  const headers = ['timestamp', 'x', 'y', 'z'];
+  const headers = ['timestamp', 'x [m/s^2]', 'y [m/s^2]', 'z [m/s^2]', 'alpha [deg/s]', 'beta [deg/s]', 'gamma [deg/s]'];
   const csvRows = [headers.join(',')];
 
   imuData.forEach((data) => {
@@ -10,6 +10,9 @@ export const generateCsv = (imuData) => {
       data.x,
       data.y,
       data.z,
+      data.alpha,
+      data.beta,
+      data.gamma
     ].join(',');
     csvRows.push(row);
   });

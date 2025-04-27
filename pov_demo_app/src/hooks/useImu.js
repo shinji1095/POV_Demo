@@ -22,13 +22,19 @@ export const useImu = (addLog) => {
 
   useEffect(() => {
     const handleDeviceMotion = async (event) => {
-      const { x, y, z } = event.accelerationIncludingGravity || {};
-      if (x !== null && y !== null && z !== null && sessionId) {
+      const { x, y, z } = event.accelerationIncludingGravity || { x: 0, y: 0, z: 0 };
+      const { alpha, beta, gamma } = event.rotationRate || { alpha: 0, beta: 0, gamma: 0 };
+      if (x !== null && y !== null && z !== null 
+        && alpha !== null && beta !== null && gamma !== null 
+        && sessionId) {
         const data = {
           timestamp: new Date().toISOString(),
           x: x.toFixed(3),
           y: y.toFixed(3),
           z: z.toFixed(3),
+          alpha: (alpha || 0).toFixed(3),
+          beta: (beta || 0).toFixed(3),
+          gamma: (gamma || 0).toFixed(3),        
         };
         try {
           await saveImuData(sessionId, data);
