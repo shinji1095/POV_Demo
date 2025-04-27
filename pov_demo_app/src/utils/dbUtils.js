@@ -2,7 +2,7 @@ import Dexie from 'dexie';
 
 const db = new Dexie('pov_demo_app');
 db.version(1).stores({
-  imu_sessions: '++id,sessionId,timestamp,x,y,z',
+  imu_sessions: '++id,sessionId,timestamp,x,y,z,alpha,beta,gamma',
 });
 
 export const saveImuData = async (sessionId, data) => {

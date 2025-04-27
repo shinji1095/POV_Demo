@@ -2,12 +2,12 @@ import React from 'react';
 import { useAi } from '../../hooks/useAi';
 import '../ButtonGrid/ButtonGrid.css';
 
-function AiButton({ addLog }) {
-  const { handleAiClick } = useAi(addLog);
+function AiButton({ addLog, getLatestImage }) {
+  const { start, stop, isRunning } = useAi(addLog);
 
   return (
-    <button className="grid-button" onClick={handleAiClick}>
-      AI
+    <button className="grid-button" onClick={isRunning ? stop : start}>
+      {isRunning ? '停止' : '開始'}
     </button>
   );
 }
