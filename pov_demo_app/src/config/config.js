@@ -12,4 +12,7 @@ export const config = {
 
     // CSV関係
     OUTPUT_DIR: '/sdcard/Download/',
+
+    // AI関係
+    TFLITE_MODEL_PATH: '/model/best_classification_float32.tflite'
   };
