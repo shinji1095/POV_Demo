@@ -10,17 +10,13 @@ function App() {
     setLogs([...logs, `${new Date().toISOString()}: ${message}`]);
   };
 
-  const handleMeasureClick = () => {
-    addLog('Measurement started');
-  };
-
   return (
     <div className="App">
       <div className="top-section">
         <ButtonGrid addLog={addLog} />
         <LogTextField logs={logs} />
       </div>
-      <MeasureButton onClick={handleMeasureClick} />
+      <MeasureButton addLog={addLog} />
     </div>
   );
 }

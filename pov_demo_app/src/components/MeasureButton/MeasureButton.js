@@ -1,10 +1,12 @@
 import React from 'react';
+import { useMeasure } from '../../hooks/useMeasure';
 import './MeasureButton.css';
 
-function MeasureButton({ onClick }) {
+function MeasureButton({ addLog }) {
+  const { start, stop, isRunning } = useMeasure(addLog);
   return (
-    <button className="measure-button" onClick={onClick}>
-      計測開始
+    <button className="measure-button" onClick={isRunning ? stop : start}>
+      {isRunning ? "計測終了" : "計測開始"}
     </button>
   );
 }
