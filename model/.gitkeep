@@ -1,0 +1,7 @@
+from ultralytics import YOLO
+
+path = "../model/classification.pt"
+model = YOLO(path)
+model.export(format="tflite")
+
+print("エクスポート完了")

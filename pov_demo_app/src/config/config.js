@@ -17,5 +17,5 @@ export const config = {
     OUTPUT_DIR: '/sdcard/Download/',
 
     // AI関係
-    TFLITE_MODEL_PATH: '/model/best_classification_float32.tflite'
+    TFLITE_MODEL_PATH: '/model/best_classification_float16.tflite'
   };

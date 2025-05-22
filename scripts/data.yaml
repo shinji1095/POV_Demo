@@ -1,0 +1,6 @@
+path: "D:/Rio Arifando/project3_yolo8/datasets/pov_classification_raw"
+train: "D:/Rio Arifando/project3_yolo8/datasets/pov_classification_raw/train/"
+val: "D:/Rio Arifando/project3_yolo8/datasets/pov_classification_raw/test/"
+names:
+  0: bad
+  1: good
